@@ -12,8 +12,9 @@ services:
       - mongo
   mongo:
     image: mongo
+    command: mongod --port 9000
     ports: 
-      - "27017:27017"
+      - "9000:9000"
 
 
    
