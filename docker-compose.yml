@@ -10,6 +10,10 @@ services:
     restart: on-failure 
     links: 
       - mongo
+    volumes:
+      - ./app:/usr/src/app
+      - /usr/src/app/node_modules
+
   mongo:
     image: mongo
     command: mongod --port 9000

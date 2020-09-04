@@ -23,18 +23,22 @@ app.get('/', (req, res) => {
   
   Item.find()
     .then(items => res.render('index', { items }))
-    .catch(err => res.status(404).json({ msg: 'No items found' }));
+    .catch(err => res.status(404).json({ msg: 'No items found', err}));
 });
 
 app.post('/item/add', (req, res) => {
-  
+
+  const { name, post } = req.body;
+
+  if (name === "" || post === "")
+    res.status(401).json({ msg: 'Wrong input' }); 
+
   const newItem = new Item({
-    
-    name: req.body.name,
-    post: req.body.post
+    name,
+    post
   });
 
-  newItem.save().then(item => res.redirect('/'));
+  newItem.save().then(() => res.redirect('/'));
 });
 
 const port = 3000
